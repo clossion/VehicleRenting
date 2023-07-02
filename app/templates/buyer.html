@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buyer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>欢迎来到汽车租赁平台</h1>
+    <p>你好, {{ current_user.username }}!</p>
+    <p>邮箱: {{ current_user.email }}</p>
+    <p>电话: {{ current_user.phone }}</p>
+    <p>地址: {{ current_user.address_country }}, {{ current_user.address_state }}, {{ current_user.address_city }}, {{ current_user.address_detail }}</p>
+    <a href="{{ url_for('buyer_orders') }}">订单管理</a>
+    <a href="{{ url_for('logout') }}">登出</a>
+    <div class="btn-group" role="group" aria-label="Alphabetical Search">
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('A')">A</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('B')">B</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('C')">C</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('D')">D</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('E')">E</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('F')">F</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('G')">G</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('H')">H</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('I')">I</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('J')">J</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('K')">K</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('L')">L</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('M')">M</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('N')">N</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('O')">O</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('P')">P</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('Q')">Q</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('R')">R</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('S')">S</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('T')">T</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('U')">U</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('V')">V</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('W')">W</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('X')">X</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('Y')">Y</button>
+        <button type="button" class="btn btn-secondary" onclick="clickLetter('Z')">Z</button>
+
+    </div>
+    <select id="brand-select" class="form-control" onchange="filterByBrand(this.value)">
+    </select>
+
+    <select id="model-select" class="form-control" onchange="filterByModel(this.value)">
+    </select>
+
+     <script>
+        function createVehicleCard(vehicle) {
+            return `
+                <div class="col-sm-4">
+                    <div class="card">
+                        <a href="/rent_vehicle/${vehicle.id}">
+                            <img class="card-img-top" src="${vehicle.photo_url}" alt="Vehicle Photo">
+                            <div class="card-body">
+                                <h5 class="card-title">${vehicle.brand} ${vehicle.model}</h5>
+                                <p class="card-text">Price per day: ${vehicle.price_per_day}</p>
+                                <a href="/rent_vehicle/${vehicle.id}" class="btn btn-primary">租给我！</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterByLetter(letter) {
+            if (letter === "...") {
+                // If the selected letter is "...", fetch all vehicles
+                fetch(`/vehicles/filter`)
+                    .then(response => response.json())
+                    .then(vehicles => {
+                        displayVehicles(vehicles);
+                    });
+            } else {
+                fetch(`/brands/${letter}`)
+                    .then(response => response.json())
+                    .then(brands => {
+                        const brandSelect = document.getElementById('brand-select');
+                        brandSelect.innerHTML = '<option>...</option>';  // Add the default option
+
+                        for (const brand of brands) {
+                            const option = document.createElement('option');
+                            option.value = brand;
+                            option.textContent = brand;
+                            brandSelect.appendChild(option);
+                        }
+
+                        // Fetch and display all vehicles of the selected brands
+                        fetch(`/vehicles/filter?letter=${letter}`)
+                            .then(response => response.json())
+                            .then(vehicles => {
+                                displayVehicles(vehicles);
+                            });
+                    });
+            }
+        }
+
+
+        let selectedLetter = null;
+
+        function clickLetter(letter) {
+            selectedLetter = letter;
+            filterByLetter(letter);
+        }
+
+        function filterByBrand(brand) {
+            if (brand === "...") {
+                // If the selected brand is "...", fetch all vehicles
+                fetch(`/vehicles/filter`)
+                    .then(response => response.json())
+                    .then(vehicles => {
+                        displayVehicles(vehicles);
+                    });
+            } else {
+                fetch(`/models/${brand}`)
+                    .then(response => response.json())
+                    .then(models => {
+                        const modelSelect = document.getElementById('model-select');
+                        modelSelect.innerHTML = '<option>...</option>';  // Add the default option
+
+                        for (const model of models) {
+                            const option = document.createElement('option');
+                            option.value = model;
+                            option.textContent = model;
+                            modelSelect.appendChild(option);
+                        }
+
+                        // Fetch and display all vehicles of the selected brand and letter
+                        fetch(`/vehicles/filter?letter=${selectedLetter}&brand=${brand}`)
+                            .then(response => response.json())
+                            .then(vehicles => {
+                                displayVehicles(vehicles);
+                            });
+                    });
+            }
+        }
+
+
+        function filterByModel(model) {
+            const brand = document.getElementById('brand-select').value;
+
+            if (model === "...") {
+                // If the selected model is "...", fetch all vehicles of the selected brand
+                fetch(`/vehicles/filter?brand=${brand}`)
+                    .then(response => response.json())
+                    .then(vehicles => {
+                        displayVehicles(vehicles);
+                    });
+            } else {
+                // Fetch and display all vehicles of the selected brand and model
+                fetch(`/vehicles/filter?brand=${brand}&model=${model}`)
+                    .then(response => response.json())
+                    .then(vehicles => {
+                        displayVehicles(vehicles);
+                    });
+            }
+        }  // 这里添加了一个 } 来关闭函数
+
+        function displayVehicles(vehicles) {
+            const vehicleList = document.getElementById('vehicle-list');
+            vehicleList.innerHTML = '';
+
+            for (const vehicle of vehicles) {
+                const vehicleItem = createVehicleCard(vehicle);
+                vehicleList.innerHTML += vehicleItem;
+            }
+        }
+
+        // Call filterByLetter with the default option when the page loads
+        window.onload = function() {
+            filterByLetter("...");
+        };
+
+    </script>
+
+    <h2>我要租车！</h2>
+    <div id="vehicle-list"></div>
+{#    <div class="row">#}
+{#        {% for vehicle in vehicles %}#}
+{#        <div class="col-sm-4">#}
+{#            <div class="card">#}
+{#                <a href="{{ url_for('rent_vehicle', vehicle_id=vehicle.id) }}">#}
+{#                    <img class="card-img-top" src="{{ url_for('static', filename='images/' + vehicle.photo) }}" alt="Vehicle Photo">#}
+{#                    <div class="card-body">#}
+{#                        <h5 class="card-title">{{ vehicle.brand }} {{ vehicle.model }}</h5>#}
+{#                        <p class="card-text">Price per day: {{ vehicle.price_per_day }}</p>#}
+{#                        <a href="{{ url_for('rent_vehicle', vehicle_id=vehicle.id) }}" class="btn btn-primary">租给我！</a>#}
+{#                    </div>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#    <h2>个人信息</h2>#}
+{#    <p><a href="{{ url_for('personal') }}">更新我的信息</a></p>#}
+{#</body>#}
+{#</html>#}

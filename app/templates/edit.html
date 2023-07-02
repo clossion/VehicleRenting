@@ -1,0 +1,23 @@
+<!-- edit_vehicle.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Vehicle</title>
+</head>
+<body>
+    <h1>Edit Vehicle</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.brand.label }}<br>
+            {{ form.brand(size=32) }}<br>
+            {% for error in form.brand.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <!-- display other vehicle fields... -->
+        <p>{{ form.submit() }}</p>
+        <p><a href="{{ url_for('seller') }}">Cancel</a></p>
+    </form>
+</body>
+</html>

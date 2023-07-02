@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div>
+    <p>用户名：{{ current_user.email }}</p>
+    <p>邮箱：{{ current_user.email }}</p>
+    <!-- Add more user info if needed -->
+    </div>
+    <a href="{{ url_for('seller') }}">返回主页</a>
+    {% if orders|length == 0 %}
+        <p>暂无订单</p>
+    {% else %}
+        {% block content %}
+        <div class="container">
+            <h2>你的订单</h2>
+            {% for order in orders %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">订单号 #{{ order.id }}</h5>
+                    <p class="card-text">买家: {{ order.buyer.username }}</p>
+                    <p class="card-text">车辆:{{ order.vehicle.brand }} {{ order.vehicle.model }}</p>
+                    <p class="card-text">总价: {{ order.total_price }}</p>
+                    <p class="card-text">支付状态: {{ order.status }}</p>
+                    <a href="{{ url_for('order_confirmation', rental_id=order.id) }}" class="btn btn-primary">查看订单详情</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endblock %}
+    {% endif %}
+</body>
+</html>

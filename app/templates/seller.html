@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seller</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>欢迎来到汽车发布平台</h1>
+    <p>你好, {{ current_user.username }}!</p>
+    <p>邮箱: {{ current_user.email }}</p>
+    <p>电话: {{ current_user.phone }}</p>
+    <p>住址: {{ current_user.address_country }}, {{ current_user.address_state }}, {{ current_user.address_city }}, {{ current_user.address_detail }}</p>
+    <a href="{{ url_for('logout') }}">登出</a>
+    <a href="{{ url_for('seller_orders') }}">订单管理</a>
+    <h2>我发布的车辆</h2>
+    <div class="row">
+        {% for vehicle in vehicles %}
+        <div class="col-sm-4">
+            <div class="card">
+                <a href="{{ url_for('edit_vehicle', vehicle_id=vehicle.id) }}">
+                    <img class="card-img-top" src="{{ url_for('static', filename='images/' + vehicle.photo) }}" alt="Vehicle Photo">
+                </a>
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ vehicle.brand }} {{ vehicle.model }}</h5>
+                    <p class="card-text">Price per day: {{ vehicle.price_per_day }}</p>
+                </div>
+                <form action="{{ url_for('delete_vehicle', vehicle_id=vehicle.id) }}" method="post">
+                    <button type="submit" class="btn btn-danger">删除</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <h2>个人信息修改</h2>
+    <p><a href="{{ url_for('personal') }}">修改个人信息</a></p>
+    <h2>车辆管理t</h2>
+    <p><a href="{{ url_for('post_vehicle') }}">发布新车辆</a></p>
+</body>
+</html>

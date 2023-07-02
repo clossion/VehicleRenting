@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>发布车辆</title>
+</head>
+<body>
+    <h1>发布车辆</h1>
+    <form method= "POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.vehicle_id.label }}<br>
+            {{ form.vehicle_id(size=32) }}<br>
+            {% for error in form.vehicle_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.photo.label }}<br>
+            {{ form.photo }}
+            {% for error in form.photo.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.brand.label }}<br>
+            {{ form.brand(size=32) }}<br>
+            {% for error in form.brand.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.model.label }}<br>
+            {{ form.model(size=32) }}<br>
+            {% for error in form.model.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.license_plate.label }}<br>
+            {{ form.license_plate(size=32) }}<br>
+            {% for error in form.license_plate.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.color.label }}<br>
+            {{ form.color(size=32) }}<br>
+            {% for error in form.color.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.displacement.label }}<br>
+            {{ form.displacement}}<br>
+            {% for error in form.displacement.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mileage.label }}<br>
+            {{ form.mileage}}<br>
+            {% for error in form.mileage.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.price_per_day.label }}<br>
+            {{ form.price_per_day }}<br>
+            {% for error in form.price_per_day.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.location.label }}<br>
+            {{ form.location(size=32) }}<br>
+            {% for error in form.location.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.delivery_option.label }}<br>
+            {{ form.delivery_option }}<br>
+            {% for error in form.delivery_option.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.same_city_return_option.label }}<br>
+            {{ form.same_city_return_option }}<br>
+            {% for error in form.same_city_return_option.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.long_term_discount_option.label }}<br>
+            {{ form.long_term_discount_option }}<br>
+            {% for error in form.long_term_discount_option.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆详情</title>
+    <style>
+        .vehicle-image {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        function setMinEndDate() {
+            var startDate = document.getElementById('start_date').value;
+            document.getElementById('end_date').min = startDate;
+        }
+    </script>
+</head>
+<body>
+    <h1>车辆详情</h1>
+    <img class="vehicle-image" src="{{ url_for('static', filename='images/' + vehicle.photo) }}" alt="Vehicle Photo">
+    <p>编号: {{ vehicle.vehicle_id }}</p>
+    <p>厂商: {{ vehicle.brand }}</p>
+    <p>型号: {{ vehicle.model }}</p>
+    <p>牌照: {{ vehicle.license_plate }}</p>
+    <p>里程: {{ vehicle.mileage }}</p>
+    <p>日租: {{ vehicle.price_per_day }}</p>
+    <p>地址: {{ vehicle.location }}</p>
+    <p>开门就能用车: {{ 'Yes' if vehicle.delivery_option else 'No' }}</p>
+    <p>同城异地归还: {{ 'Yes' if vehicle.same_city_return_option else 'No' }}</p>
+    <p>长租优惠: {{ 'Yes' if vehicle.long_term_discount_option else 'No' }}</p>
+    <form action="{{ url_for('confirm_rental', vehicle_id=vehicle.id) }}" method="post">
+        <label for="start_date">开始日期:</label>
+        <input type="date" id="start_date" name="start_date" min="{{ today }}" required onchange="setMinEndDate()">
+        <label for="end_date">结束日期:</label>
+        <input type="date" id="end_date" name="end_date" min="{{ today }}" required>
+        <input type="submit" value="Confirm Rental" class="btn btn-primary">
+    </form>
+    <a href="{{ url_for('buyer') }}">返回首页</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+</head>
+<body>
+    <h1>订单支付</h1>
+    <p>总价: {{ total_cost }}</p>
+    <p>你的账户余额: {{ current_user.balance }}</p>
+    <p>你的地址: {{ current_user.address_country }}, {{ current_user.address_state }}, {{ current_user.address_city }}, {{ current_user.address_detail }}</p>
+    <form method="post">
+        <input type="submit" value="Confirm Payment" class="btn btn-primary">
+    </form>
+    <form method="POST" action="{{ url_for('cancel_payment') }}">
+        <input type="submit" value="Cancel Payment">
+    </form>
+</body>
+</html>
