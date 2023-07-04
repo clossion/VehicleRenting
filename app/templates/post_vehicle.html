@@ -54,6 +54,12 @@
         span.error {
             color: red;
         }
+
+         #image-preview {
+            max-width: 300px;
+            max-height: 300px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -69,7 +75,8 @@
         </p>
         <p>
             <label for="photo">车辆照片:</label><br>
-            {{ form.photo }}<br>
+            {{ form.photo(id="image-upload") }}<br>
+            <img id="image-preview" src="#" alt="Image Preview"><br>
             {% for error in form.photo.errors %}
             <span class="error">[{{ error }}]</span>
             {% endfor %}
@@ -153,5 +160,16 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
+
+    <script>
+        document.getElementById('image-upload').addEventListener('change', function(e) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('image-preview').style.display = 'block';
+                document.getElementById('image-preview').src = event.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    </script>
 </body>
 </html>

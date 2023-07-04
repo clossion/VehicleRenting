@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="93a996c7-bb59-4bf4-9da5-21a768010ccb" name="更改" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/edit_vehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/edit_vehicle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/seller_orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/seller_orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/post_vehicle.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/post_vehicle.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +152,7 @@
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="C:\Users\neuedustu16\PycharmProjects\HelloVehicle\venv\Scripts\python.exe" />
       <option name="SDK_NAME" value="Python 3.11 (HelloVehicle) (2)" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -199,7 +197,8 @@
       <workItem from="1688268376155" duration="71000" />
       <workItem from="1688268511545" duration="207000" />
       <workItem from="1688281640569" duration="9688000" />
-      <workItem from="1688434851227" duration="3599000" />
+      <workItem from="1688434851227" duration="5585000" />
+      <workItem from="1688458345018" duration="32000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1687838941440</created>
@@ -404,7 +403,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688437605814</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="update">
+      <created>1688438667211</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1688438667211</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -420,6 +426,6 @@
     <SUITE FILE_PATH="coverage/run_py$run.coverage" NAME="run 覆盖结果" MODIFIED="1687657999175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/HelloVehicle$run.coverage" NAME="run 覆盖结果" MODIFIED="1687615752401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/HelloVehicle$app.coverage" NAME="app 覆盖结果" MODIFIED="1687575424618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HelloVehicle$HelloVehicle.coverage" NAME="HelloVehicle 覆盖结果" MODIFIED="1688438451887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HelloVehicle$HelloVehicle.coverage" NAME="HelloVehicle 覆盖结果" MODIFIED="1688439088755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
