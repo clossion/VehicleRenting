@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     address_city = db.Column(db.String(64))
     address_detail = db.Column(db.String(256))
     user_type = db.Column(db.String(64))
-    balance = db.Column(db.Float, default=0.0)  # Added this line
+    balance = db.Column(db.Float, default=0.0)
     vehicles = db.relationship('Vehicle', backref='seller', lazy='dynamic')
 
     def set_password(self, password):

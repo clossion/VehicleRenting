@@ -16,7 +16,6 @@ class Order(db.Model):
     verification_code = db.Column(db.String(10))
     seller = db.relationship('User', backref='sales', foreign_keys=[seller_id])
     vehicle = db.relationship('Vehicle', backref='orders')
-    # Add any other fields you need for your order
     buyer = db.relationship('User', backref='buyer_orders', foreign_keys=[buyer_id])
     seller = db.relationship('User', backref='seller_orders', foreign_keys=[seller_id])
 

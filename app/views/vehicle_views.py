@@ -87,7 +87,7 @@ def post_vehicle():
                           color=form.color.data,
                           displacement=form.displacement.data,
                           mileage=form.mileage.data,
-                          price_per_day=form.price_per_day.data,
+                          price_per_day=form.pricePerDay.data,
                           location=form.location.data,
                           delivery_option=form.delivery_option.data,
                           same_city_return_option=form.same_city_return_option.data,
@@ -108,7 +108,6 @@ def edit_vehicle(vehicle_id):
         abort(403)
     form = VehicleForm(obj=vehicle)
     if form.validate_on_submit():
-        # Handle the photo upload
         if form.photo.data:
             f = form.photo.data
             if isinstance(f, FileStorage):
@@ -128,7 +127,7 @@ def edit_vehicle(vehicle_id):
 def delete_vehicle(vehicle_id):
     vehicle = Vehicle.query.get_or_404(vehicle_id)
     if vehicle.seller_id != current_user.id:
-        abort(403)  # Forbidden, the current user is not the seller of this vehicle
+        abort(403)
     db.session.delete(vehicle)
     db.session.commit()
     flash('Your vehicle has been deleted!', 'success')
@@ -149,7 +148,7 @@ def confirm_rental(vehicle_id):
     vehicle = Vehicle.query.get(vehicle_id)
     start_date = request.form.get('start_date')
     end_date = request.form.get('end_date')
-    total_price = calculate_total_price(vehicle.price_per_day, start_date, end_date)
+    total_price = calculate_total_price(vehicle.pricePerDay, start_date, end_date)
     rental = Rental(vehicle_id=vehicle.id, user_id=current_user.id, start_date=start_date, end_date=end_date, total_price=total_price)
 
     db.session.add(rental)
@@ -164,15 +163,13 @@ def confirm_rental(vehicle_id):
 def payment_confirmation():
     rental_id = session.get('rental_id')
     if rental_id is None:
-        abort(404)  # No rental id in session, something went wrong
+        abort(404)
     rental = Rental.query.get_or_404(rental_id)
-    vehicle = rental.vehicle  # Get the vehicle from the rental
+    vehicle = rental.vehicle
 
-    # Get the existing order if it exists
     order = Order.query.filter_by(buyer_id=current_user.id, vehicle_id=vehicle.id, status='Unpaid').first()
 
     if request.method == 'POST':
-        # Handle payment here
         if order is None:
             order = Order(buyer_id=current_user.id, seller_id=vehicle.seller_id, vehicle_id=vehicle.id,
                           start_date=rental.start_date, end_date=rental.end_date, total_price=rental.total_price,
@@ -193,27 +190,21 @@ def payment_confirmation():
     total_cost = rental.total_price  # Calculate the total cost
     return render_template('payment_confirmation.html', rental=rental, total_cost=total_cost, order=order)
 
-# 在 app/views/vehicle_views.py 文件中的一个新的视图函数中
-
 @app.route('/verify_order/<int:order_id>', methods=['POST'])
 @login_required
 def verify_order(order_id):
     order = Order.query.get_or_404(order_id)
 
-    # 检查当前用户是否是订单的卖家
     if current_user.id != order.seller_id:
         abort(403)
 
-    # 检查验证码是否正确
     if request.form['verification_code'] != order.verification_code:
         flash('The verification code is incorrect.', 'error')
         return redirect(url_for('seller_orders'))
 
-    # 验证码正确，将订单的金额转到卖家的账户上
     seller = User.query.get(order.seller_id)
     seller.balance += order.total_price
 
-    # 更新订单的状态
     order.status = 'Completed'
 
     db.session.commit()
@@ -234,7 +225,7 @@ def order_confirmation(rental_id):
 def cancel_payment():
     rental_id = session.get('rental_id')
     if rental_id is None:
-        abort(404)  # No rental id in session, something went wrong
+        abort(404)
     rental = Rental.query.get_or_404(rental_id)
     order = Order.query.filter_by(buyer_id=current_user.id, vehicle_id=rental.vehicle_id, status='Unpaid').first()
     if order is not None:

@@ -2,19 +2,46 @@
 <html>
 <head>
     <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f6f6f6;
+            overflow: hidden;
+            position: relative;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+        /* Shapes */
+        .shape {
+            position: absolute;
+            background-color: rgba(76, 175, 80, 0.5);
+        }
+    </style>
 </head>
 <body>
-    <h1>登录</h1>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    <!-- Form -->
     <form method="post">
+        <h1>登录</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
@@ -38,7 +65,52 @@
             {% endfor %}
         </p>
         <p>{{ form.submit() }}</p>
+        <p>你需要创建一个账户？<a href="{{ url_for('register') }}">注册</a></p>
     </form>
-<p>你需要创建一个账户？点我 <a href="{{ url_for('register') }}">注册</a>.</p>
+    <script>
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        const shapes = [];
+        for (let i = 0; i < 50; i++) {
+            // Create a new shape
+            const shape = document.createElement('div');
+            shape.className = 'shape';
+            shape.style.width = `${random(50, 100)}px`;
+            shape.style.height = `${random(50, 100)}px`;
+            shape.style.borderRadius = `${random(0, 50)}%`;
+            document.body.appendChild(shape);
+
+            // Set initial position and velocity
+            const pos = {x: random(0, window.innerWidth), y: random(0, window.innerHeight)};
+            const vel = {x: random(-2, 2), y: random(-2, 2)};
+
+            shapes.push({shape, pos, vel});
+        }
+
+        function moveAndBounce(shape, pos, vel) {
+            // Move the shape
+            pos.x += vel.x;
+            pos.y += vel.y;
+            shape.style.left = `${pos.x}px`;
+            shape.style.top = `${pos.y}px`;
+
+            // Bounce off the walls
+            if (pos.x < 0 || pos.x > window.innerWidth - shape.offsetWidth) {
+                vel.x = -vel.x;
+            }
+            if (pos.y < 0 || pos.y > window.innerHeight - shape.offsetHeight) {
+                vel.y = -vel.y;
+            }
+        }
+
+        // Animation loop
+        setInterval(function() {
+            for (const {shape, pos, vel} of shapes) {
+                moveAndBounce(shape, pos, vel);
+            }
+        }, 20);
+    </script>
 </body>
 </html>

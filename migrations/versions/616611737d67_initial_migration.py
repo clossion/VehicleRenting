@@ -47,7 +47,7 @@ def upgrade():
 
     with op.batch_alter_table('vehicle', schema=None) as batch_op:
         batch_op.add_column(sa.Column('photo', sa.String(length=120), nullable=True))
-        batch_op.add_column(sa.Column('price_per_day', sa.Float(), nullable=True))
+        batch_op.add_column(sa.Column('pricePerDay', sa.Float(), nullable=True))
         batch_op.add_column(sa.Column('location', sa.String(length=120), nullable=True))
         batch_op.add_column(sa.Column('delivery_option', sa.Boolean(), nullable=True))
         batch_op.add_column(sa.Column('same_city_return_option', sa.Boolean(), nullable=True))
@@ -87,7 +87,7 @@ def downgrade():
         batch_op.drop_column('same_city_return_option')
         batch_op.drop_column('delivery_option')
         batch_op.drop_column('location')
-        batch_op.drop_column('price_per_day')
+        batch_op.drop_column('pricePerDay')
         batch_op.drop_column('photo')
 
     with op.batch_alter_table('user', schema=None) as batch_op:

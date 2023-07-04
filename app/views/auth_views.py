@@ -6,7 +6,7 @@ from app.models.user import User
 
 @app.route('/')
 def index():
-    return redirect(url_for('login'))  # redirect to login page by default
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -22,7 +22,6 @@ def login():
             flash('You are not a seller. Please login as a buyer.')
             return redirect(url_for('login'))
         login_user(user)
-        # 根据用户类型重定向到不同的页面
         if form.login_as.data == 'buyer':
             return redirect(url_for('buyer'))
         else:
@@ -46,4 +45,4 @@ def register():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('login'))  # redirect to login page after logout
+    return redirect(url_for('login'))
