@@ -26,6 +26,7 @@
                     <p class="card-text">车辆: {{ order.vehicle.brand }}{{ order.vehicle.model }}</p>
                     <p class="card-text">总价: {{ order.total_price }}元</p>
                     <p class="card-text">支付状态: {{ order.status }}</p>
+                    <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('return_vehicle', order_id=order.id) }}'">Return Vehicle</button>
                     <a href="{{ url_for('order_confirmation', rental_id=order.id) }}" class="btn btn-primary">View Order</a>
                 </div>
             </div>

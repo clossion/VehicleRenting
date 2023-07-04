@@ -14,6 +14,8 @@ class Order(db.Model):
     total_price = db.Column(db.Float)
     status = db.Column(db.String(64))
     verification_code = db.Column(db.String(10))
+    return_status = db.Column(db.String(64))  # Add this line
+    is_returned = db.Column(db.Boolean, default=False)  # Add this line
     seller = db.relationship('User', backref='sales', foreign_keys=[seller_id])
     vehicle = db.relationship('Vehicle', backref='orders')
     buyer = db.relationship('User', backref='buyer_orders', foreign_keys=[buyer_id])
@@ -27,5 +29,7 @@ class Order(db.Model):
         self.end_date = end_date
         self.total_price = total_price
         self.status = status
+        self.return_status = 'Not Returned'
+        self.is_returned = False
 
 

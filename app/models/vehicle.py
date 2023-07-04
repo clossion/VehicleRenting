@@ -18,6 +18,7 @@ class Vehicle(db.Model):
     color = db.Column(db.String(120))
     displacement = db.Column(db.Float)
     mileage = db.Column(db.Float)
+    is_rented = db.Column(db.Boolean, default=False) # 0: available, 1: rented, 2: returned
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

@@ -137,6 +137,8 @@ def delete_vehicle(vehicle_id):
 @login_required
 def rent_vehicle(vehicle_id):
     vehicle = Vehicle.query.get_or_404(vehicle_id)
+    vehicle.is_rented = True  # Set the vehicle status to rented
+    db.session.commit()
     return render_template('rent_vehicle.html', vehicle=vehicle)
 
 from flask import session
@@ -150,7 +152,7 @@ def confirm_rental(vehicle_id):
     end_date = request.form.get('end_date')
     total_price = calculate_total_price(vehicle.price_per_day, start_date, end_date)
     rental = Rental(vehicle_id=vehicle.id, user_id=current_user.id, start_date=start_date, end_date=end_date, total_price=total_price)
-
+    vehicle.is_rented = False
     db.session.add(rental)
     db.session.commit()
 
@@ -233,4 +235,14 @@ def cancel_payment():
         db.session.commit()
     return redirect(url_for('buyer'))
 
+@app.route('/return_vehicle/<int:order_id>', methods=['POST'])
+@login_required
+def return_vehicle(order_id):
+    order = Order.query.get_or_404(order_id)
+    vehicle = Vehicle.query.get_or_404(order.vehicle_id)
+    vehicle.is_rented = False  # Set the vehicle status to not rented
+    order.is_returned = True  # Set the order status to returned
+    db.session.commit()
+    flash('Vehicle returned successfully!', 'success')
+    return redirect(url_for('buyer_orders'))
 
