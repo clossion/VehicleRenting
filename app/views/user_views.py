@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request, abort, session
 from flask_login import login_required, current_user
 from app import app, db
 from app.forms.user_forms import UpdateForm
@@ -43,11 +43,16 @@ def seller():
     orders = Order.query.filter_by(seller_id=current_user.id).all()
     return render_template('seller.html', vehicles=vehicles, orders=orders)
 
-@app.route('/buyer_orders')
+@app.route('/buyer_orders', methods=['GET', 'POST'])
 @login_required
 def buyer_orders():
+    if request.method == 'POST':
+        # handle vehicle return here
+        pass
     orders = Order.query.filter_by(buyer_id=current_user.id).all()
     return render_template('buyer_orders.html', orders=orders)
+
+
 
 @app.route('/seller_orders')
 @login_required
