@@ -239,10 +239,20 @@ def cancel_payment():
 @login_required
 def return_vehicle(order_id):
     order = Order.query.get_or_404(order_id)
-    vehicle = Vehicle.query.get_or_404(order.vehicle_id)
-    vehicle.is_rented = False  # Set the vehicle status to not rented
-    order.is_returned = True  # Set the order status to returned
+
+    if current_user.id != order.buyer_id:
+        abort(403)
+
+    # Update the order status
+    order.return_status = 'Returned'
+    order.is_returned = True
+
+    # Update the seller's balance
+    seller = User.query.get(order.seller_id)
+    seller.balance += order.total_price
+
     db.session.commit()
+
     flash('Vehicle returned successfully!', 'success')
     return redirect(url_for('buyer_orders'))
 
