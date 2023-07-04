@@ -13,7 +13,7 @@ class VehicleForm(FlaskForm):
     color = StringField('Color', validators=[DataRequired()])
     displacement = FloatField('Displacement', validators=[DataRequired()])
     mileage = FloatField('Mileage', validators=[DataRequired()])
-    pricePerDay = FloatField('Price per Day', validators=[DataRequired()])
+    price_per_day = FloatField('Price per Day', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     delivery_option = BooleanField('Delivery Available')
     same_city_return_option = BooleanField('Same City Return Available')

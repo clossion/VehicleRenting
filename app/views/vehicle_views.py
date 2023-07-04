@@ -87,7 +87,7 @@ def post_vehicle():
                           color=form.color.data,
                           displacement=form.displacement.data,
                           mileage=form.mileage.data,
-                          price_per_day=form.pricePerDay.data,
+                          price_per_day=form.price_per_day.data,
                           location=form.location.data,
                           delivery_option=form.delivery_option.data,
                           same_city_return_option=form.same_city_return_option.data,
@@ -148,7 +148,7 @@ def confirm_rental(vehicle_id):
     vehicle = Vehicle.query.get(vehicle_id)
     start_date = request.form.get('start_date')
     end_date = request.form.get('end_date')
-    total_price = calculate_total_price(vehicle.pricePerDay, start_date, end_date)
+    total_price = calculate_total_price(vehicle.price_per_day, start_date, end_date)
     rental = Rental(vehicle_id=vehicle.id, user_id=current_user.id, start_date=start_date, end_date=end_date, total_price=total_price)
 
     db.session.add(rental)
