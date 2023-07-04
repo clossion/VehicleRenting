@@ -9,7 +9,6 @@
     <div>
     <p>用户名：{{ current_user.email }}</p>
     <p>邮箱：{{ current_user.email }}</p>
-    <!-- Add more user info if needed -->
     </div>
     <a href="{{ url_for('seller') }}">返回主页</a>
     {% if orders|length == 0 %}

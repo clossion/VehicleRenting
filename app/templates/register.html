@@ -2,82 +2,156 @@
 <html>
 <head>
     <title>Register</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #FFFFFF, #E0E0E0);
+            font-family: 'Helvetica Neue', sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 36px;
+            color: #333;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        span.error {
+            color: red;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>注册</h1>
     <form method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.user_type.label }}<br>
+            <label for="user_type">用户类型:</label><br>
             {{ form.user_type }}<br>
             {% for error in form.user_type.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.username.label }}<br>
+            <label for="username">用户名:</label><br>
             {{ form.username(size=32) }}<br>
             {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.email.label }}<br>
+            <label for="email">邮箱:</label><br>
             {{ form.email(size=64) }}<br>
             {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.password.label }}<br>
+            <label for="password">密码:</label><br>
             {{ form.password(size=64) }}<br>
             {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.password2.label }}<br>
+            <label for="password2">确认密码:</label><br>
             {{ form.password2(size=64) }}<br>
             {% for error in form.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.phone.label }}<br>
+            <label for="phone">电话号码:</label><br>
             {{ form.phone(size=20) }}<br>
             {% for error in form.phone.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_country.label }}<br>
+            <label for="address_country">国家:</label><br>
             {{ form.address_country }}<br>
             {% for error in form.address_country.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_state.label }}<br>
+            <label for="address_state">省/州:</label><br>
             {{ form.address_state }}<br>
             {% for error in form.address_state.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_city.label }}<br>
+            <label for="address_city">城市:</label><br>
             {{ form.address_city }}<br>
             {% for error in form.address_city.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_detail.label }}<br>
+            <label for="address_detail">详细地址:</label><br>
             {{ form.address_detail(size=100) }}<br>
             {% for error in form.address_detail.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.submit() }}</p>
+        <p>
+            <input type="submit" value="注册">
+        </p>
     </form>
+    <div class="login-link">
+        <a href="{{ url_for('login') }}">已经有账号了？我要登录</a>
+    </div>
 </body>
 </html>
