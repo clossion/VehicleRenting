@@ -3,17 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Payment Confirmation</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #FFFFFF, #E0E0E0);
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn.cancel {
+            background-color: #dc3545;
+        }
+
+        .btn.cancel:hover {
+            background-color: #a30012;
+        }
+    </style>
 </head>
 <body>
-    <h1>订单支付</h1>
-    <p>总价: {{ total_cost }}</p>
-    <p>你的账户余额: {{ current_user.balance }}</p>
-    <p>你的地址: {{ current_user.address_country }}, {{ current_user.address_state }}, {{ current_user.address_city }}, {{ current_user.address_detail }}</p>
-    <form method="post">
-        <input type="submit" value="Confirm Payment" class="btn btn-primary">
-    </form>
-    <form method="POST" action="{{ url_for('cancel_payment') }}">
-        <input type="submit" value="Cancel Payment">
-    </form>
+    <div class="container">
+        <h1>订单支付</h1>
+        <p>总价: {{ total_cost }}</p>
+        <p>你的账户余额: {{ current_user.balance }}</p>
+        <p>你的地址: {{ current_user.address_country }}, {{ current_user.address_state }}, {{ current_user.address_city }}, {{ current_user.address_detail }}</p>
+        <form method="post">
+            <input type="submit" value="确认支付" class="btn">
+        </form>
+        <form method="POST" action="{{ url_for('cancel_payment') }}">
+            <input type="submit" value="取消支付" class="btn cancel">
+        </form>
+    </div>
 </body>
 </html>

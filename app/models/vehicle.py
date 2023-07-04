@@ -27,6 +27,8 @@ class Vehicle(db.Model):
             'id': self.id,
             'brand': self.brand,
             'model': self.model,
+            'price_per_day': self.price_per_day,  # Add this line
             'photo_url': url_for('static', filename='images/' + self.photo),
         }
+
 

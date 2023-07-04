@@ -4,12 +4,98 @@
     <meta charset="UTF-8">
     <title>车辆详情</title>
     <style>
+        body {
+            background: linear-gradient(to right, #FFFFFF, #E0E0E0);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 添加Google Fonts链接 */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
         .vehicle-image {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .vehicle-details {
+            margin-bottom: 20px;
+        }
+
+        .vehicle-details p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .rental-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .rental-form label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .rental-form input[type="date"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .rental-form input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .rental-form input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
         function setMinEndDate() {
             var startDate = document.getElementById('start_date').value;
@@ -18,25 +104,31 @@
     </script>
 </head>
 <body>
-    <h1>车辆详情</h1>
-    <img class="vehicle-image" src="{{ url_for('static', filename='images/' + vehicle.photo) }}" alt="Vehicle Photo">
-    <p>编号: {{ vehicle.vehicle_id }}</p>
-    <p>厂商: {{ vehicle.brand }}</p>
-    <p>型号: {{ vehicle.model }}</p>
-    <p>牌照: {{ vehicle.license_plate }}</p>
-    <p>里程: {{ vehicle.mileage }}</p>
-    <p>日租: {{ vehicle.price_per_day }}</p>
-    <p>地址: {{ vehicle.location }}</p>
-    <p>开门就能用车: {{ 'Yes' if vehicle.delivery_option else 'No' }}</p>
-    <p>同城异地归还: {{ 'Yes' if vehicle.same_city_return_option else 'No' }}</p>
-    <p>长租优惠: {{ 'Yes' if vehicle.long_term_discount_option else 'No' }}</p>
-    <form action="{{ url_for('confirm_rental', vehicle_id=vehicle.id) }}" method="post">
-        <label for="start_date">开始日期:</label>
-        <input type="date" id="start_date" name="start_date" min="{{ today }}" required onchange="setMinEndDate()">
-        <label for="end_date">结束日期:</label>
-        <input type="date" id="end_date" name="end_date" min="{{ today }}" required>
-        <input type="submit" value="Confirm Rental" class="btn btn-primary">
-    </form>
-    <a href="{{ url_for('buyer') }}">返回首页</a>
+    <div class="container">
+        <h1>车辆详情</h1>
+        <img class="vehicle-image" src="{{ url_for('static', filename='images/' + vehicle.photo) }}" alt="Vehicle Photo">
+        <div class="vehicle-details">
+            <p>编号: {{ vehicle.vehicle_id }}</p>
+            <p>厂商: {{ vehicle.brand }}</p>
+            <p>型号: {{ vehicle.model }}</p>
+            <p>牌照: {{ vehicle.license_plate }}</p>
+            <p>里程: {{ vehicle.mileage }}</p>
+            <p>日租: {{ vehicle.price_per_day }}</p>
+            <p>地址: {{ vehicle.location }}</p>
+            <p>开门就能用车: {{ 'Yes' if vehicle.delivery_option else 'No' }}</p>
+            <p>同城异地归还: {{ 'Yes' if vehicle.same_city_return_option else 'No' }}</p>
+            <p>长租优惠: {{ 'Yes' if vehicle.long_term_discount_option else 'No' }}</p>
+        </div>
+        <form class="rental-form" action="{{ url_for('confirm_rental', vehicle_id=vehicle.id) }}" method="post">
+            <label for="start_date">开始日期:</label>
+            <input type="date" id="start_date" name="start_date" min="{{ today }}" required onchange="setMinEndDate()">
+            <label for="end_date">结束日期:</label>
+            <input type="date" id="end_date" name="end_date" min="{{ today }}" required>
+            <input type="submit" value="确认租车" class="btn btn-primary">
+        </form>
+        <div class="back-link">
+            <a href="{{ url_for('buyer') }}">返回首页</a>
+        </div>
+    </div>
 </body>
 </html>

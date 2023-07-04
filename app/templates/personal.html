@@ -3,58 +3,117 @@
 <html>
 <head>
     <title>Update Personal Information</title>
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+            h1 {
+        text-align: center;
+        color: #333;
+        margin-top: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        span.error {
+            color: red;
+        }
+
+        input[type="submit"],
+        input[type="button"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>我的个人信息</h1>
     <form method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.username.label }}<br>
+            <label for="{{ form.username.id }}">{{ form.username.label }}</label><br>
             {{ form.username(size=32) }}<br>
             {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.email.label }}<br>
+            <label for="{{ form.email.id }}">{{ form.email.label }}</label><br>
             {{ form.email(size=64) }}<br>
             {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.phone.label }}<br>
+            <label for="{{ form.phone.id }}">{{ form.phone.label }}</label><br>
             {{ form.phone(size=20) }}<br>
             {% for error in form.phone.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_country.label }}<br>
+            <label for="{{ form.address_country.id }}">{{ form.address_country.label }}</label><br>
             {{ form.address_country() }}<br>
             {% for error in form.address_country.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_state.label }}<br>
+            <label for="{{ form.address_state.id }}">{{ form.address_state.label }}</label><br>
             {{ form.address_state() }}<br>
             {% for error in form.address_state.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_city.label }}<br>
+            <label for="{{ form.address_city.id }}">{{ form.address_city.label }}</label><br>
             {{ form.address_city() }}<br>
             {% for error in form.address_city.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.address_detail.label }}<br>
+            <label for="{{ form.address_detail.id }}">{{ form.address_detail.label }}</label><br>
             {{ form.address_detail(size=256) }}<br>
             {% for error in form.address_detail.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+            <span class="error">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>{{ form.submit() }}</p>
